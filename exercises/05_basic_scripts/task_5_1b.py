@@ -23,32 +23,6 @@ $ python task_5_1b.py
 
 Все задания надо выполнять используя только пройденные темы. То есть эту задачу можно
 решить без использования условия if.
-
-london_co = {
-    "r1": {
-        "location": "21 New Globe Walk",
-        "vendor": "Cisco",
-        "model": "4451",
-        "ios": "15.4",
-        "ip": "10.255.0.1",
-    },
-    "r2": {
-        "location": "21 New Globe Walk",
-        "vendor": "Cisco",
-        "model": "4451",
-        "ios": "15.4",
-        "ip": "10.255.0.2",
-    },
-    "sw1": {
-        "location": "21 New Globe Walk",
-        "vendor": "Cisco",
-        "model": "3850",
-        "ios": "3.6.XE",
-        "ip": "10.255.0.101",
-        "vlans": "10,20,30",
-        "routing": True,
-    },
-}
 """
 london_co = {
     "r1": {
@@ -76,9 +50,6 @@ london_co = {
     },
 }
 
-device = input('Введите имя устройства (r1,r2,sw1): ')
-lis = str(list(london_co[device].keys())).replace('[','(').replace(']',')').replace('\'','')
-param = input(f'Введите имя параметра {lis} : ')
-
-
+device = input(f"Введите имя устройства ({', '.join(london_co.keys())}): ")
+param = input(f"Введите имя параметра ({', '.join(london_co[device].keys())}) : ")
 print(london_co[device][param])
