@@ -49,3 +49,54 @@ bin_ip = "00001010000000010000000111000011"
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 
 """
+ip = input(f"Введите IP-сети в формате 10.1.1.0/24: ")
+
+network = (ip.split('/')[0]).split('.')
+
+mask = int(ip.split('/')[1])
+maskmaxbit = "{:<032}".format('1' * mask)
+maskoktet = int(maskmaxbit[0:8], 2), int(maskmaxbit[8:16], 2), int(maskmaxbit[16:24], 2), int(maskmaxbit[24:32], 2)
+
+oct1 = int(network[0])
+oct2 = int(network[1])
+oct3 = int(network[2])
+oct4 = int(network[3])
+
+bin_ip= '{:08b}{:08b}{:08b}{:08b}'.format(oct1, oct2, oct3, oct4)
+bin_network = bin_ip[0:mask] + "0" * (32 - mask)
+
+network_oct1, network_oct2, network_oct3, network_oct4 = [
+    int(bin_network[0:8], 2),
+    int(bin_network[8:16], 2),
+    int(bin_network[16:24], 2),
+    int(bin_network[24:32], 2),
+]
+
+# print(oct1, oct2, oct3, oct4)
+# print(bin_ip)
+# print(bin_network)
+
+bin_mask = "1" * mask + "0" * (32 - mask)
+m1, m2, m3, m4 = [
+    int(bin_mask[0:8], 2),
+    int(bin_mask[8:16], 2),
+    int(bin_mask[16:24], 2),
+    int(bin_mask[24:32], 2),
+]
+# print (bin_mask)
+# print(m1, m2, m3, m4)
+
+ip_output = """
+Network:
+{0:<8}  {1:<8}  {2:<8}  {3:<8}
+{0:08b}  {1:08b}  {2:08b}  {3:08b}"""
+
+mask_output = """
+Mask:
+/{0}
+{1:<8}  {2:<8}  {3:<8}  {4:<8}
+{1:08b}  {2:08b}  {3:08b}  {4:08b}
+"""
+
+print(ip_output.format(network_oct1, network_oct2, network_oct3, network_oct4))
+print(mask_output.format(mask, m1, m2, m3, m4))
