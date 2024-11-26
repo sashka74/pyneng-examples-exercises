@@ -12,3 +12,17 @@
 
 Ограничение: Все задания надо выполнять используя только пройденные темы.
 """
+ip = input(f"Введите IP-адрес в формате 10.0.1.1: ")
+first_byte = int(ip.split('.')[0])
+broadcast = '255.255.255.255'
+
+if 0 < first_byte < 224:
+    print ('unicast')
+elif 223 < first_byte < 240:
+    print('multicast')
+elif ip == broadcast:
+    print('local broadcast')
+elif ip == '0.0.0.0':
+    print ('unassigned')
+else:
+    print ('unused')
