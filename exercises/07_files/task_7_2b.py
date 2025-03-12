@@ -16,4 +16,23 @@
 
 """
 
+from sys import argv
+
 ignore = ["duplex", "alias", "configuration"]
+in_file = argv[1]
+out_file = argv[2]
+
+with open(in_file, 'r') as f:
+    for line in f:
+        if line.startswith('!'):
+            continue
+        elif ignore[0] in line:
+            continue
+        elif ignore[1] in line:
+            continue
+        elif ignore[2] in line:
+            continue
+        # print(line.rstrip())
+        write = open(out_file, 'a')
+        write.write(line)
+        write.close()
