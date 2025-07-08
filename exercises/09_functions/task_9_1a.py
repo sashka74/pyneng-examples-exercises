@@ -43,3 +43,21 @@ port_security_template = [
 ]
 
 access_config = {"FastEthernet0/12": 10, "FastEthernet0/14": 11, "FastEthernet0/16": 17}
+
+
+def generate_access_config(intf_vlan_mapping, access_template, psecurity=None):
+    tmpl=[]
+    for iface, value in intf_vlan_mapping.items():
+        tmpl.append(f'interface {iface}')
+        for command in access_template:
+            if command.endswith("vlan"):
+                vlan = str(value)
+                tmpl.append(f'{command} {"".join(vlan)}')
+            else:
+                tmpl.append(command)
+        if psecurity is not None:
+            for psec in psecurity:
+                tmpl.append(psec)
+    return tmpl
+
+print(generate_access_config(access_config, access_mode_template, port_security_template))
