@@ -64,3 +64,20 @@ def ignore_command(command, ignore):
         if word in command:
             ignore_status = True
     return ignore_status
+
+def convert_config_to_dict(config_filename):
+    trunk_dict={}
+    with open(config_filename, 'r') as f:
+        for line in f:
+            line = line.rstrip()
+            if not line or ignore_command(line,ignore) or line.startswith('!'):
+                continue
+            if not line.startswith(' '):
+                iface = line.rstrip()
+                trunk_dict[iface] = []
+            elif iface:
+                vlan = line.strip()
+                trunk_dict[iface].append(vlan)
+    return trunk_dict
+
+print(convert_config_to_dict('config_sw1.txt'))
